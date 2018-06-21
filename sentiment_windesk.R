@@ -11,23 +11,48 @@
 # install.packages("scales")
 # install.packages("reshape2")
 
-library(lubridate)
-library(scales)
-library(reshape2)
 library(ROAuth)
 library(plyr)
 library(dplyr)
+library(stringr)
+library(ggplot2)
+library(httr)
+library(SnowballC)
+library(tm)
+library(tmap)
+library(lubridate)
+library(scales)
+library(reshape2)
+# library(ROAuth)
+# library(plyr)
+# library(dplyr)
 library(ggplot2)
 library(httr)
 library(syuzhet)
 library(SnowballC)
-library(tm)
-library(tmap)
+# library(tm)
+# library(tmap)
 library(RTextTools)
 library(slam)
 
+#preprocessing data
 
-windesktext <-read.csv("skype_windesk.csv")
+windeskdata <-read.csv("skype_windesk.csv")
+
+windesktext <- Corpus(VectorSource(windeskdata$pageFunctionResult.question))
+
+windesktext <- tm_map(windesktext, PlainTextDocument)
+
+windesktext <- tm_map(windesktext, removePunctuation)
+
+windesktext <- tm_map(windesktext, removeWords, stopwords (kind = "en"))
+
+windesktext <- tm_map(windesktext, stemDocument)
+
+
+#sentiment analysis
+
+
 
 print(windesktext)
 

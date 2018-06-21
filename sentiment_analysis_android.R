@@ -61,6 +61,8 @@ androidtext <- tm_map(androidtext, stemDocument)
 
 # androidtext <-read.csv("skype_android.csv")
 
+
+# sentiment analysis
 print(androidtext)
 
 questions_android<-iconv(androidtext$pageFunctionResult.question, to='utf-8-mac')
